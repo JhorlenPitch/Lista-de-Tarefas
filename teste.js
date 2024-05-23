@@ -13,7 +13,7 @@ document.getElementById('addTaskButton').addEventListener('click', () => {
 //Função que envia uma requisição para obter tarefas
 async function fetchTasks() {
     try {
-        const response = await fetch('http://localhost/testeBemol/api/routes/index.php');
+        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api/routes/index.php');
         const tasks = await response.json();
         if (tasks.length === 0) {
             alert('Não há tarefas para exibir.');
@@ -33,7 +33,7 @@ async function addTask(title, prazo) {
     }
 
     try {
-        const response = await fetch('http://localhost/testeBemol/api/routes/index.php', {
+        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api/routes/index.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ async function addTask(title, prazo) {
 //A função updateTask envia uma requisição PUT para atualizar uma tarefa no servidor
 async function updateTask(taskId, newTitle, prazo, completed) {
     try {
-        const response = await fetch('http://localhost/testeBemol/api/routes/index.php', {
+        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api/routes/index.php', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ async function updateTask(taskId, newTitle, prazo, completed) {
 //A função deleteTask envia uma requisição DELETE para remover uma tarefa do servidor
 async function deleteTask(taskId, listItem) {
     try {
-        const response = await fetch('http://localhost/testeBemol/api/routes/index.php', {
+        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api/routes/index.php', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
