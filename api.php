@@ -2,7 +2,7 @@
 
 require 'database.php';
 
-//Rota para buscar todas as tarefas
+//Rota para buscar todas as tarefas     
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && empty($_GET)) {
     try {
         $stmt = $conn->query('SELECT * FROM tarefas');
