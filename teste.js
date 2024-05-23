@@ -5,13 +5,15 @@ document.getElementById('addTaskButton').addEventListener('click', () => {
     const title = titleInput.value;
     const prazo = prazoInput.value;
     addTask(title, prazo);
-    titleInput.value = ''; //Limpa o campo de título
-    prazoInput.value = ''; //Limpa o campo de prazo
+    titleInput.value = ''; //limpa o campo de título
+    prazoInput.value = ''; //limpa o campo de prazo
 });
 
+
+//Função que envia uma requisição para obter tarefas
 async function fetchTasks() {
     try {
-        const response = await fetch('http://localhost/testeBemol/api.php');
+        const response = await fetch('http://localhost/testeBemol/api/routes/index.php');
         const tasks = await response.json();
         if (tasks.length === 0) {
             alert('Não há tarefas para exibir.');
@@ -23,6 +25,7 @@ async function fetchTasks() {
     }
 }
 
+//F unção addTask valida os dados da tarefa, envia uma requisição POST para adiciona-la no servidor
 async function addTask(title, prazo) {
     if (!title || !prazo) {
         console.error('O título e o prazo da tarefa são obrigatórios');
@@ -30,13 +33,18 @@ async function addTask(title, prazo) {
     }
 
     try {
-        const response = await fetch('http://localhost/testeBemol/api.php', {
+        const response = await fetch('http://localhost/testeBemol/api/routes/index.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ title, prazo })
         });
+
+        if (!response.ok) {
+            throw new Error('Erro na resposta do servidor');
+        }
+
         const newTask = await response.json();
         fetchTasks();
         alert('Tarefa adicionada com sucesso!');
@@ -44,16 +52,22 @@ async function addTask(title, prazo) {
         console.error('Erro ao adicionar tarefa:', error);
     }
 }
-
+ 
+//A função updateTask envia uma requisição PUT para atualizar uma tarefa no servidor
 async function updateTask(taskId, newTitle, prazo, completed) {
     try {
-        const response = await fetch(`http://localhost/testeBemol/api.php`, {
+        const response = await fetch('http://localhost/testeBemol/api/routes/index.php', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id: taskId, title: newTitle, prazo: prazo, completed: completed })
+            body: JSON.stringify({ id: taskId, title: newTitle, prazo, completed })
         });
+
+        if (!response.ok) {
+            throw new Error('Erro na resposta do servidor');
+        }
+
         const result = await response.json();
         if (result.error) {
             console.error('Erro ao atualizar tarefa:', result.error);
@@ -66,34 +80,48 @@ async function updateTask(taskId, newTitle, prazo, completed) {
     }
 }
 
-async function deleteTask(taskId) {
+//A função deleteTask envia uma requisição DELETE para remover uma tarefa do servidor
+async function deleteTask(taskId, listItem) {
     try {
-        const response = await fetch(`http://localhost/testeBemol/api.php`, {
+        const response = await fetch('http://localhost/testeBemol/api/routes/index.php', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ id: taskId })
         });
-        const result = await response.json();
-        if (result.error) {
-            console.error('Erro ao deletar tarefa:', result.error);
+
+        if (response.status === 204) {
+            listItem.remove(); // Remove o item da lista do DOM
+            if (document.getElementById('taskList').childElementCount === 0) {
+                alert('Não há tarefas para exibir.');
+            }
         } else {
-            fetchTasks();
-            alert('Tarefa deletada com sucesso!');
+            const result = await response.json();
+            if (result.error) {
+                console.error('Erro ao deletar tarefa:', result.error);
+            } else {
+                listItem.remove(); // Remove o item da lista do DOM
+                if (document.getElementById('taskList').childElementCount === 0) {
+                    alert('Não há tarefas para exibir.');
+                }
+            }
         }
     } catch (error) {
         console.error('Erro ao deletar tarefa:', error);
     }
 }
 
+
+//A funçao displayTasks limpa a lista de tarefas exibida, ordena as tarefas por data, 
+//e cria elementos no DOM para cada tarefa com opções de edição, atualização e exclusão.
 function displayTasks(tasks) {
     const taskList = document.getElementById('taskList');
     const obs = document.getElementById('obs');
     taskList.innerHTML = '';
     obs.innerHTML = '<br><br><label for="newTaskTitle">Obs: ao fazer qualquer alteração deve clicar em "Up"</label>';
 
-    //Ordena as tarefas pela data em ordem decrescente
+    // Ordena as tarefas pela data em ordem decrescente
     tasks.sort((a, b) => new Date(b.prazo) - new Date(a.prazo));
 
     tasks.forEach(task => {
@@ -111,7 +139,7 @@ function displayTasks(tasks) {
         const month = String(prazo.getMonth() + 1).padStart(2, '0');
         const day = String(prazo.getDate() + 1).padStart(2, '0');
         deadlineInput.type = 'date';
-        deadlineInput.value = `${year}-${month}-${day}`; //Formato YYYY-MM-DD
+        deadlineInput.value = `${year}-${month}-${day}`; // Formato YYYY-MM-DD
         deadlineInput.classList.add('edit-deadline-input');
         listItem.appendChild(deadlineInput);
 
@@ -141,7 +169,7 @@ function displayTasks(tasks) {
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('custom-button-x');
         deleteButton.innerText = 'X';
-        deleteButton.addEventListener('click', () => deleteTask(task.id));
+        deleteButton.addEventListener('click', () => deleteTask(task.id, listItem));
         listItem.appendChild(deleteButton);
 
         taskList.appendChild(listItem);
