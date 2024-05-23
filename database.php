@@ -14,7 +14,7 @@ try {
     exit;
 }
 /*
-este trecho de código PHP estabelece uma conexão com um banco de dados MySQL usando a classe PDO e 
+Estabelece uma conexão com um banco de dados MySQL usando a classe PDO e 
 configura a manipulação de erros para lançar exceções em caso de problemas de conexão.
 */
 ?>
