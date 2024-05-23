@@ -1,0 +1,159 @@
+body {
+    background-image: url('bemol.png');
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-size: cover;
+    background-position: auto;
+}
+
+@keyframes rotateBorder {
+    0% { border-color: rgb(36, 36, 255); }
+    33% { border-color: rgb(255, 97, 97); }
+    66% { border-color: rgb(255, 226, 226); }
+    100% { border-color: rgb(76, 76, 170); }
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fffffff2;
+    padding: 40px;
+    box-shadow: 0 20px 30px rgb(255, 253, 253); 
+
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+
+    border: 2px solid rgb(144, 188, 255); /* Define uma borda inicial */
+    border-radius: 20px; /* Adiciona bordas arredondadas */
+    animation: rotateBorder 5s linear infinite; /* Aplica a animação à borda */
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+label {
+    font-size: 14px;
+    color: #666;
+}
+
+input[type="text"] {
+    width: calc(100% - 110px);
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 0 10px;
+    margin-right: 1rem;
+}
+
+button {
+    background-color: #3587df;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.custom-button-x {
+    background-color: #ff1111;
+    color: #fff;
+    /* Outros estilos */
+}
+
+.custom-button-up {
+    background-color: #04b491;
+    color: #fff;
+    /* Outros estilos */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+
+ul li input[type="checkbox"] {
+    margin-right: 10px;
+    width: 100px; /* Define a largura do checkbox */
+    height: 20px; /* Define a altura do checkbox */
+}
+
+ul li input[type="date"] {
+    margin: 0.2rem;
+    margin-right: 1rem;
+    width: calc(60% - 110px);
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 0 10px;
+}
+
+ul li button {
+    margin-left: 5px;
+    padding: 5px 10px;
+}
+
+footer{
+    text-align: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    color: white;
+}
+
+.input-group{
+    display: flex;
+    justify-content: space-around;
+    background-color: none;
+    align-items: center;
+    margin: 1rem;
+}
+
+.input-group #newTaskprazo{
+    margin: 1rem;
+    width: calc(50% - 110px);
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 0 10px;
+}
+
+span{
+    margin-right: 1rem;
+}
+
+#taskList {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
