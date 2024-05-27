@@ -92,7 +92,7 @@ async function deleteTask(taskId, listItem) {
         });
 
         if (response.status === 204) {
-            listItem.remove(); // Remove o item da lista do DOM
+            listItem.remove(); //Remove o item da lista do DOM
             if (document.getElementById('taskList').childElementCount === 0) {
                 alert('Não há tarefas para exibir.');
             }
@@ -101,7 +101,7 @@ async function deleteTask(taskId, listItem) {
             if (result.error) {
                 console.error('Erro ao deletar tarefa:', result.error);
             } else {
-                listItem.remove(); // Remove o item da lista do DOM
+                listItem.remove(); //Remove o item da lista do DOM
                 if (document.getElementById('taskList').childElementCount === 0) {
                     alert('Não há tarefas para exibir.');
                 }
