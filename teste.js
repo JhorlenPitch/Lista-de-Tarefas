@@ -13,7 +13,7 @@ document.getElementById('addTaskButton').addEventListener('click', () => {
 //Função que envia uma requisição para obter tarefas
 async function fetchTasks() {
     try {
-        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api/routes/index.php');
+        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api.php');
         const tasks = await response.json();
         if (tasks.length === 0) {
             alert('Não há tarefas para exibir.');
@@ -25,7 +25,7 @@ async function fetchTasks() {
     }
 }
 
-//F unção addTask valida os dados da tarefa, envia uma requisição POST para adiciona-la no servidor
+//Função addTask valida os dados da tarefa, envia uma requisição POST para adiciona-la no servidor
 async function addTask(title, prazo) {
     if (!title || !prazo) {
         console.error('O título e o prazo da tarefa são obrigatórios');
@@ -33,7 +33,7 @@ async function addTask(title, prazo) {
     }
 
     try {
-        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api/routes/index.php', {
+        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -53,10 +53,10 @@ async function addTask(title, prazo) {
     }
 }
  
-//A função updateTask envia uma requisição PUT para atualizar uma tarefa no servidor
+//Afunção updateTask envia uma requisição PUT para atualizar uma tarefa no servidor
 async function updateTask(taskId, newTitle, prazo, completed) {
     try {
-        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api/routes/index.php', {
+        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api.php', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ async function updateTask(taskId, newTitle, prazo, completed) {
 //A função deleteTask envia uma requisição DELETE para remover uma tarefa do servidor
 async function deleteTask(taskId, listItem) {
     try {
-        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api/routes/index.php', {
+        const response = await fetch('http://localhost/Lista-de-Tarefas-main/api.php', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
